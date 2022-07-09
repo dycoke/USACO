@@ -2,7 +2,7 @@
 //fastest java tc is slower than slowest c++ tc lmao
 import java.util.*;
 import java.io.*;
-public class Main {
+public class silver2 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("citystate.in"));
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("citystate.out")));
