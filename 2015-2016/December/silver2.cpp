@@ -2,6 +2,8 @@
 using namespace std;
 
 int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
 	freopen("highcard.in", "r", stdin);
     freopen("highcard.out", "w", stdout);
     int n; cin >> n;
