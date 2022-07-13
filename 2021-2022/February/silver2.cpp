@@ -1,8 +1,9 @@
-//WHAT THE ACTUAL HELL THIS CODE IS ACTUALLY DOGSHIT
 //THE PROBLEM FUCKIGN SUCKS
 //BRIAN DEAN GO DIE IN A FUCKING HOLE
 //WHY THE FUCK DO I PASS ALL BUT 2 TC THEN I PASS LIKE HALF THE TESTCASES RIGHT AFTEURTDGHFJDGHKJFH
-#include <bits/stdc++.h>
+#include <iostream>
+#include <map>
+#include <vector>
 using namespace std;
 
 int n, targx, targy;
