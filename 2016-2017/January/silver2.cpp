@@ -27,7 +27,7 @@ int main(){
         int t1 = max(h[i] + p[n] - p[i-1], h[i] + s[n] - s[i-1]);
         int t2 = max(p[i] + h[n] - h[i-1], p[i] + s[n] - s[i-1]);
         int t3 = max(s[i] + h[n] - h[i-1], s[i] + p[n] - p[i-1]);
-        ans = max(ans, max(t3, max(t1,t2)));
+        ans = max(ans, max({t1, t2, t3}));
     }
     cout << ans << endl;
 }
