@@ -4,7 +4,7 @@ using namespace std;
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(nullptr);
-  //commented out the files cuz online judge used stdin/out
+	//commented out the files cuz online judge used stdin/out
 	// freopen("stacking.in", "r", stdin);
 	// freopen("stacking.out", "w", stdout);
 	int n, k;
