@@ -26,7 +26,7 @@ int main() {
 			cycle.push_back(j);
 		}
 		for(int j = 0; j < cycle.size(); j++) {
-			ans[cycle[j]] = cycle[(j + (k % cycle.size())) % cycle.size()];
+			ans[cycle[j]] = cycle[(j + k) % cycle.size()];
 		}
 	}
 	for(int i = 0; i < n; i++) {
