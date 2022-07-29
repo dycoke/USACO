@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
 
 int n, m, c;
 bool works(vector<int>& arrivals, int time) {
