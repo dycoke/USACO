@@ -2,7 +2,8 @@
 using namespace std;
 
 vector<int> adj[200];
-bool visited[200], cur_size;
+bool visited[200];
+int cur_size;
 void dfs(int node) {
 	visited[node] = 1;
 	cur_size++;
