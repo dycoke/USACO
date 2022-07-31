@@ -6,33 +6,33 @@ public class bronze3 {
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("measurement.out")));
         int n = Integer.parseInt(br.readLine());
         int ans = 0;
-        log[] milkLog = new log[n];
-        HashMap<String, Integer> logicTable = new HashMap<>();
-        logicTable.put("Bessie", 0);
-        logicTable.put("Elsie", 1);
-        logicTable.put("Mildred", 2);
+        Log[] milkLog = new Log[n];
+        HashMap<String, Integer> LogicTable = new HashMap<>();
+        LogicTable.put("Bessie", 0);
+        LogicTable.put("Elsie", 1);
+        LogicTable.put("Mildred", 2);
         for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int time = Integer.parseInt(st.nextToken());
-            int name = logicTable.get(st.nextToken());
+            int name = LogicTable.get(st.nextToken());
             String amount = st.nextToken();
             int amt = 0;
             if (amount.substring(0, 1).equals("+")) {
                 amt = Integer.parseInt(amount.substring(1));
             } else {
-                amt = - Integer.parseInt(amount.substring(1));
+                amt = -Integer.parseInt(amount.substring(1));
             }
-            log temp = new log(time, name, amt);
+            Log temp = new Log(time, name, amt);
             milkLog[i] = temp;
         }
-        cow[] cows = new cow[3];
-        makeCow(cows);
+        Cow[] Cows = new Cow[3];
+        makeCow(Cows);
         Arrays.sort(milkLog);
         String previous = "";
         int previousTie = 0;
         for (int i = 0; i < n; i++) {
-            cows[milkLog[i].cow].amount += milkLog[i].amount;
-            cow[] copy = Arrays.copyOf(cows, cows.length);
+            Cows[milkLog[i].cow].amount += milkLog[i].amount;
+            Cow[] copy = Arrays.copyOf(Cows, Cows.length);
             Arrays.sort(copy);
             int tied = numTie(copy);
             if (!copy[2].name.equals(previous) || tied != previousTie) {
@@ -45,20 +45,20 @@ public class bronze3 {
         pw.close();
         br.close();
     }
-    public static void makeCow(cow[] cows) {
-        cow Bessie = new cow("Bessie", 7);
-        cows[0] = Bessie;
-        cow Elsie = new cow("Elsie", 7);
-        cows[1] = Elsie;
-        cow Mildred = new cow("Mildred", 7);
-        cows[2] = Mildred;
+    public static void makeCow(Cow[] Cows) {
+        Cow Bessie = new Cow("Bessie", 7);
+        Cows[0] = Bessie;
+        Cow Elsie = new Cow("Elsie", 7);
+        Cows[1] = Elsie;
+        Cow Mildred = new Cow("Mildred", 7);
+        Cows[2] = Mildred;
 
     }
-    public static int numTie(cow[] cows) {
+    public static int numTie(Cow[] Cows) {
         int ans = 0;
-        int previous = cows[2].amount;
-        for(int i = cows.length - 1; i >= 0; i--) {
-            if (cows[i].amount == previous) {
+        int previous = Cows[2].amount;
+        for(int i = Cows.length - 1; i >= 0; i--) {
+            if (Cows[i].amount == previous) {
                 ans++;
             } else {
                 return ans;
@@ -67,29 +67,29 @@ public class bronze3 {
         return ans;
     }
 }
-class log implements Comparable<log> {
+class Log implements Comparable<Log> {
     public int time;
     public int cow;
     public int amount;
-    public log(int t, int c, int a) {
+    public Log(int t, int c, int a) {
         time = t;
         cow = c;
         amount = a;
     }
-    public int compareTo(log other) {
+    public int compareTo(Log other) {
         return time - other.time;
     }
 }
-class cow implements Comparable<cow> {
+class Cow implements Comparable<Cow> {
     public String name;
     public int amount;
 
-    public cow(String n, int a) {
+    public Cow(String n, int a) {
         name = n;
         amount = a;
     }
 
-    public int compareTo(cow other) {
+    public int compareTo(Cow other) {
         return amount - other.amount;
     }
 }
