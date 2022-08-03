@@ -5,7 +5,7 @@ brute force >
 */
 import java.util.*;
 import java.io.*;
-public class Main {
+public class bronze3 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("outofplace.in"));
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("outofplace.out")));
