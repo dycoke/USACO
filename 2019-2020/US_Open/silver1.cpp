@@ -29,7 +29,6 @@ int main() {
 	}
 	sort(intervals, intervals + m);
 	ll left = 1, right = intervals[m-1].second - intervals[0].first, ans;
-	// ll left = 2, right = 2;
 	while(left <= right) {
 		ll mid = left + (right - left)/2;
 		if(works(mid)) {
