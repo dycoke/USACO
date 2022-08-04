@@ -5,16 +5,6 @@ bool cmp(pair<string, int> a, pair<string, int> b) {
 	return a.second < b.second;
 }
 
-void make_cows(vector<pair<string, int>>& cows) {
-	cows[0] = {"Annabelle", 0};
-	cows[1] = {"Bessie", 0};
-	cows[2] = {"Daisy", 0};
-	cows[3] = {"Elsie", 0};
-	cows[4] = {"Gertie", 0};
-	cows[5] = {"Henrietta", 0};
-	cows[6] = {"Maggie", 0};
-}
-
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(nullptr);
@@ -22,8 +12,16 @@ int main() {
 	freopen("notlast.out", "w", stdout);
 
 	int n; cin >> n;
-	vector<pair<string, int>> cows(7);
-	make_cows(cows);
+	vector<pair<string, int>> cows ({
+		{"Annabelle", 0}, 
+		{"Bessie", 0}, 
+		{"Daisy", 0}, 
+		{"Elsie", 0}, 
+		{"Gertie", 0}, 
+		{"Henrietta", 0}, 
+		{"Maggie", 0}
+	});
+	
 	for(int i = 0; i < n; i++) {
 		string c; int produced;
 		cin >> c >> produced;
@@ -50,7 +48,7 @@ int main() {
 	while(i < 7 && cows[0].second == cows[i].second) {
 		i++;
 	}
-	if(i == 7 || cows[i].second == cows[i+1].second) {
+	if(i == 7 || (i < 7 && cows[i].second == cows[i+1].second)) {
 		cout << "Tie\n";
 	} else {
 		cout << cows[i].first << '\n';
