@@ -8,7 +8,7 @@ int main() {
 	freopen("measurement.out", "w", stdout);
 	int n, g; cin >> n >> g;
 	vector<pair<int, pair<int, int>>> logs(n);
-	map<int, int> cows;
+	unordered_map<int, int> cows;
 	multiset<int> lb;
 	for(int i = 0; i < n; i++) {
 		cin >> logs[i].first >> logs[i].second.first >> logs[i].second.second;
