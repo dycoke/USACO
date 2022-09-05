@@ -3,11 +3,11 @@ using namespace std;
 
 vector<int> adj[1000];
 vector<int> ans(1000, -1);
-void dfs(int cow) {
+void dp_fs(int cow) {
 	ans[cow] = 0;
 	for(int& c : adj[cow]) {
 		if(ans[c] == -1) {
-			dfs(c);
+			dp_fs(c);
 		}
 		ans[cow] += (ans[c] + 1);
 	}
@@ -75,7 +75,7 @@ int main() {
 	}
 	for(int i = 0; i < n; i++) {
 		if(ans[i] == -1) {
-			dfs(i);
+			dp_fs(i);
 		}
 		cout << ans[i] << '\n';
 	}
