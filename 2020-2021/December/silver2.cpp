@@ -37,7 +37,7 @@ int main() {
 		for(int j = i; j < n; j++) {
 			int a = min(points[i].first, points[j].first) - 1;
 			int b = max(points[i].first, points[j].first) - 1;
-			ans += (ll) (prefix[a + 1][j + 1] - prefix[a + 1][i])*(prefix[n][j+1] - prefix[n][i] - prefix[b][j+1] + prefix[b][i]);
+			ans += (ll) (prefix[a + 1][j + 1] - prefix[a + 1][i])*(prefix[n][j + 1] - prefix[n][i] - prefix[b][j + 1] + prefix[b][i]);
 		}
 	}
 	cout << ans + 1 << '\n';

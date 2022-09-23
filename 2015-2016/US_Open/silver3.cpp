@@ -1,14 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-long n, m, visits;
-vector<bool> v, v_copy;
-vector<set<long> > adj;
-void dfs(long node) {
-    v[node] = 1;
+int n, m, visits;
+vector<bool> visited;
+vector<vector<int>> adj;
+void dfs(int node) {
+    visited[node] = 1;
     visits++;
     for(auto& n : adj[node]) {
-        if(!v[n])
+        if(!visited[n])
             dfs(n);
     }
     return;
@@ -20,35 +20,28 @@ int main() {
     freopen("closing.in", "r", stdin);
     freopen("closing.out", "w", stdout);
     cin >> n >> m;
-    adj = vector<set<long> >(n);
-    v = vector<bool>(n, 0);
-    v_copy = vector<bool>(n, 0);
-    set<long> open;
-    for(int i = 0; i < n; i++)
-        open.insert(i);
-    for(long i = 0; i < m; i++) {
-        long a, b; cin >> a >> b;
-        adj[a-1].insert(b-1);
-        adj[b-1].insert(a-1);
+    adj = vector<vector<int>>(n);
+    visited = vector<bool>(n, 0);
+    for(int i = 0; i < m; i++) {
+        int a, b; cin >> a >> b;
+        adj[--a].push_back(--b);
+        adj[b].push_back(a);
     }
-    visits = 0;
-    dfs(*open.begin());
-    if(visits == n)
-        cout << "YES" << endl;
-    else
-        cout << "NO" << endl;
-    for(long i = 1; i < n; i++) {
-        long c; cin >> c;
-        v_copy[c-1] = 1;
-        open.erase(c-1);
-        v = vector<bool>(v_copy);
+    int start = 0;
+    vector<bool> closed(n);
+    for(int i = 0; i < n; i++) {
+        while(closed[start]) {
+            start++;
+        }
+        visited = vector<bool>(closed);
         visits = 0;
-        dfs(*open.begin());
-        if(visits == n-i)
+        dfs(start);
+        if(visits + i == n)
             cout << "YES" << endl;
         else
             cout << "NO" << endl;
+        int c; cin >> c;
+        closed[c - 1] = 1;
     }
-    long c; cin >> c;
     return 0;
 }
