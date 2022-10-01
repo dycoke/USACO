@@ -12,20 +12,14 @@ int main() {
 	}
 	vector<ll> start(2*m+1), stop(2*m+1);
 	vector<ll> a(m+1);
-	for(int i = 0; i < n; i++) {
-		a[intervals[i].first]++;
-	}
-	for(int i = 0; i <= m; i++) {
-		for(int j = 0; j <= m; j++) {
-			start[i+j] += a[i] * a[j];
-		}
-	}
 	vector<ll> b(m+1);
 	for(int i = 0; i < n; i++) {
+		a[intervals[i].first]++;
 		b[intervals[i].second]++;
 	}
 	for(int i = 0; i <= m; i++) {
 		for(int j = 0; j <= m; j++) {
+			start[i+j] += a[i] * a[j];
 			stop[i+j] += b[i] * b[j];
 		}
 	}
