@@ -1,69 +1,66 @@
 #include <bits/stdc++.h>
-#define ll long long
 using namespace std;
+
+#define ll long long
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     int k, m, n; cin >> k >> m >> n;
     vector<pair<int, int>> patches(k);
-    for(pair<int, int>& patch : patches) {
-        cin >> patch.first >> patch.second;
+    for(int i = 0; i < k; i++) {
+        cin >> patches[i].first >> patches[i].second;
+    }
+    vector<int> nhoj(m);
+    for(int i = 0; i < m; i++) {
+        cin >> nhoj[i];
     }
     sort(patches.begin(), patches.end());
-    vector<int> njoh(m);
-    for(int& cow : njoh) {
-        cin >> cow;
-    }
-    sort(njoh.begin(), njoh.end());
-    njoh.push_back(1e9 + 1);
+    sort(nhoj.begin(), nhoj.end());
+    nhoj.push_back(1e9 + 1);
+    //divide patches into m + 1 sections
     vector<vector<pair<int, int>>> sections(m+1);
-    vector<ll> section_tastiness(m+1, 0);
-    int r, pp = 0;
+    vector<ll> section_sums(m+1);
+    int r, pi = 0;
     for(int i = 0; i <= m; i++) {
-        r = njoh[i];
-        while(pp < k && patches[pp].first < r) {
-            section_tastiness[i] += patches[pp].second;
-            sections[i].push_back(patches[pp]);
-            pp++;
+        r = nhoj[i];
+        int sum = 0;
+        while(pi < k && patches[pi].first < r) {
+            sections[i].push_back(patches[pi]);
+            sum += patches[pi].second;
+            pi++;
         }
+        section_sums[i] = sum;
     }
-    vector<ll> gains;
-    gains.push_back(section_tastiness[0]);
-    gains.push_back(section_tastiness[m]);
+    //for each section, use 2p to find the max amount of tastiness half-lengthed
+    vector<ll> gains({section_sums[0], section_sums[m]});
     for(int i = 1; i < m; i++) {
-        if(section_tastiness[i] == 0) {
-            continue;
+        if(section_sums[i] == 0) {
+            gains.push_back(0);
         }
-        ll max_sum = 0, cur_sum = 0;
-        int p1 = 0, p2 = 0;
-        while(p1 < sections[i].size() && p2 < sections[i].size()) {
-            while(p2 < sections[i].size()) {
-                cur_sum += sections[i][p2].second;
-                if(2*(sections[i][p2].first - sections[i][p1].first) >= (njoh[i] - njoh[i-1])) {
-                    cur_sum -= sections[i][p2].second;
+        int l = 0, r = 0;
+		ll cur_sum = 0, max_sum = 0;
+        while(l < sections[i].size() && r < sections[i].size()) {
+            while(r < sections[i].size()) {
+                cur_sum += sections[i][r].second;
+                if(2*(sections[i][r].first - sections[i][l].first) >= nhoj[i] - nhoj[i-1]) {
+					cur_sum -= sections[i][r].second;
                     break;
                 } else {
-                    p2++;
+                    r++;
                 }
             }
-
-            max_sum = max(max_sum, cur_sum);
-            cur_sum -= sections[i][p1++].second;
+			max_sum = max(cur_sum, max_sum);
+            cur_sum -= sections[i][l++].second;
         }
         gains.push_back(max_sum);
-        if(max_sum)
-        gains.push_back(section_tastiness[i] - max_sum);
+        gains.push_back(section_sums[i] - max_sum);
     }
-    ll ans = 0;
     sort(gains.begin(), gains.end(), greater<ll>());
-    
+    ll ans = 0;
     for(int i = 0; i < n; i++) {
-        if(i >= gains.size() || gains[i] == 0) {
-            break;
-        }
         ans += gains[i];
     }
-    cout << ans << '\n';
+	cout << ans << '\n';
     return 0;
 }
