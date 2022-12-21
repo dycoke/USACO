@@ -68,8 +68,7 @@ int main() {
 	//find stopping time
 	int sum = 0, etime = -1;
 	while((sum << 1) < sumweights) { //bit shifting to save time because its multiplying by 2
-		sum += cows[etime + 1].first.first;
-		etime++;
+		sum += cows[++etime].first.first;
 	}
 	etime = cows[etime].second;
 	int ans = 0;
