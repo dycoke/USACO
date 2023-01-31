@@ -21,8 +21,8 @@ void floodfill(int x, int y, int steps){
 	floodfill(x_size, y, steps);
 	floodfill(x, y_size, steps);
 	//pour from one bucket to the other
-	floodfill(min(x + y, x_size), max(0, x + y - min(x + y, x_size)), steps);
-	floodfill(max(0, x + y - min(x + y, y_size)), min(x + y, y_size), steps);
+	floodfill(min(x + y, x_size), x + y - min(x + y, x_size), steps);
+	floodfill(x + y - min(x + y, y_size), min(x + y, y_size), steps);
 }
 
 int main() {
