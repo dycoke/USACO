@@ -1,6 +1,3 @@
-/*
-just cuz its optional doesn't mean you shouldn't have done it...
-*/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -29,7 +26,6 @@ int get_cycle_length(int x) {
             mark_visited(b);
             return 0;
         } else if (succ[succ[b]] == -1) {
-            int size = 0;
             mark_visited(succ[b]);
             return 0;
         }
