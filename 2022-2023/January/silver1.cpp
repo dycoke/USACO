@@ -1,22 +1,5 @@
 /*
-If a single letter leads to 2 different letters, it is impossible to differenciate them when swapping
-This means that a single letter can only lead to one letter
-This is just a funcitonal graph problem in disguise
-We can parse through the cases where the functional graph exists, ouputting -1 when it doesn't
-A straight line of nodes can be solved in length of line turns
-
-If a cycle exists, we need to try and break the cycle
-This can be achieved by bringing in a new node and replacing the edge
-However, if a node leads into the cycle, we can effectively collapse the cycle in on itself
-
-Thus, a component that is entirely a cycle must need both num_nodes + 1 turns and a spare letter that it can switch to
-A collapseable component will always give up one of its letters once finished
-Thus, if there exists a single collapseable component, we will be able to solve this
-If not, the number of letters must be less than the max number
-
-There is one edge case, where all the components are 1 sized cycles
-This is the only time where the answer 0 exists, so we can add a check before printing the final answer
-
+just cuz its optional doesn't mean you shouldn't have done it...
 */
 #include <bits/stdc++.h>
 using namespace std;

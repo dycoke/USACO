@@ -1,5 +1,5 @@
 /*
-
+like dsu, but worse
 */
 #include <bits/stdc++.h>
 using namespace std;

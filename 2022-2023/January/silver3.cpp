@@ -1,3 +1,6 @@
+/*
+idek what i was thinking it took me 5 minutes
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
