@@ -21,7 +21,7 @@ int main() {
         for(int j = 1; j <= k; j++) {
             if(i + j <= n) {
                 cur_max = max(cur_max, skill[i+j-1]);
-                dp[i+j] = max(dp[i+j], dp[i] + (j)*cur_max);
+                dp[i+j] = max(dp[i+j], dp[i] + j*cur_max);
             }
         }
     }
