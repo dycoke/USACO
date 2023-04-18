@@ -1,58 +1,86 @@
 #include <bits/stdc++.h>
-
 using namespace std;
+#define ll long long
 
-struct DSU {
-	vector<int> e;
-	DSU(int N) { e = vector<int>(N, -1); }
+const ll MOD = 1e9 + 7;
 
-	// get representive component (uses path compression)
-	int get(int x) { return e[x] < 0 ? x : e[x] = get(e[x]); }
-
-	bool same_set(int a, int b) { return get(a) == get(b); }
-
-	int size(int x) { return -e[get(x)]; }
-
-	bool unite(int x, int y) {  // union by size
-		x = get(x), y = get(y);
-		if (x == y) return false;
-		if (e[x] > e[y]) swap(x, y);
-		e[x] += e[y]; e[y] = x;
-		return true;
+ll exp(ll x, ll n) {
+	assert(n >= 0);
+	x %= MOD;
+	ll res = 1;
+	while (n > 0) {
+		if (n % 2 == 1) { res = (res * x) % MOD; }
+		x = (x * x) % MOD;
+		n /= 2;
 	}
-};
+	return res;
+}
 
-int main () {
+int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-	freopen("mootube.in", "r", stdin);
-	freopen("mootube.out", "w", stdout);
-    int n, q; cin >> n >> q;
-    vector<array<int, 3>> relevance(n-1);
-    for(int i = 0; i < n - 1; i++) {
-        int a, b, r;
-        cin >> a >> b >> r;
-        relevance[i] = {--a, --b, r};
+    freopen("poetry.in", "r", stdin);
+    freopen("poetry.out", "w", stdout);
+
+    int n, m, k; cin >> n >> m >> k;
+    pair<int, int> words[n];
+    int lengths[k+1], pattern[26];
+    memset(pattern, 0, sizeof(pattern));
+    memset(lengths, 0, sizeof(lengths));
+    for(int i = 0; i < n; i++) {
+        int l, c; cin >> l >> c;
+        words[i] = {l, c};
+        lengths[l]++;
     }
-    vector<array<int, 3>> queries(q);
-    for(int i = 0; i < q; i++) {
-        int k, v; cin >> k >> v;
-        queries[i] = {k, --v, i};
+
+    for(int i = 0; i < m; i++) {
+        char c; cin >> c;
+        pattern[c - 'A']++;
     }
-    sort(relevance.begin(), relevance.end(), [](array<int, 3> a, array<int, 3> b) {return a[2] > b[2];});
-    sort(queries.begin(), queries.end(), [](array<int, 3> a, array<int, 3> b) {return a[0] > b[0];});
-    vector<int> ans(q);
-    int index = 0;
-    DSU dsu(n);
-    for(int i = 0; i < q; i++) {
-        while(index < n-1 && queries[i][0] <= relevance[index][2]) {
-            dsu.unite(relevance[index][0], relevance[index][1]);
-            index++;
+
+    ll dp[k+1];
+    memset(dp, 0, sizeof(dp));
+    dp[0] = 1;
+    for(int i = 1; i <= k; i++) {
+        for(int j = 1; j <= i; j++) {
+            if(i - j >= 0) {
+                dp[i] += dp[i-j]*lengths[j];
+                dp[i] %= MOD;
+            }
         }
-        ans[queries[i][2]] = dsu.size(queries[i][1]) - 1;
     }
-    for(int& a : ans) {
-        cout << a << '\n';
+
+    sort(words, words + n, [](pair<int, int> a, pair<int, int> b) {return a.second < b.second;});
+    vector<int> rhymes;
+    for(int i = 0; i < n;) {
+        int curr = 0;
+        int p = i;
+        while(p < n && words[p].second == words[i].second) {
+            curr += dp[k - words[p].first];
+            curr %= MOD;
+            p++;
+        }
+        rhymes.push_back(curr);
+        i = p;
     }
+
+    // cout << rhymes.size() << '\n';
+    ll ans = 1;
+    for(int i = 0; i < 26; i++) {
+        // cout << pattern[i] << ' ';
+        if(pattern[i] == 0) continue;
+        ll curr = 0;
+        for(int& r: rhymes) {
+            curr += exp(r, pattern[i]);
+            curr %= MOD;
+        }
+        ans *= curr;
+        ans %= MOD;
+    }
+    cout << ans << '\n';
     return 0;
 }
+
+/*
+O(n^2)
+*/
