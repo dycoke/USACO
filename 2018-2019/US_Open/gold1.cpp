@@ -40,11 +40,6 @@ int main() {
             }
         }
     }
-    
-    int ans = INF;
-    for(int i = 0; i <= k; i++) {
-        ans = min(ans, dp[n][i]);
-    }
-    cout << ans << '\n';
+    cout << dp[n][0] << '\n';
     return 0;
 }
