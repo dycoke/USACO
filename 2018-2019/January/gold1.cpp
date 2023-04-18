@@ -64,10 +64,8 @@ int main() {
         i = p;
     }
 
-    // cout << rhymes.size() << '\n';
     ll ans = 1;
     for(int i = 0; i < 26; i++) {
-        // cout << pattern[i] << ' ';
         if(pattern[i] == 0) continue;
         ll curr = 0;
         for(int& r: rhymes) {
@@ -80,7 +78,3 @@ int main() {
     cout << ans << '\n';
     return 0;
 }
-
-/*
-O(n^2)
-*/
