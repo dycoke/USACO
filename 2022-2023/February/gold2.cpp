@@ -39,13 +39,13 @@ void dfs(int u, int p) {
     if(children.size()) {
         dp2[u] = LLONG_MAX;
         int mn = -1;
-        ll time1 = 1, time2 = 1, sum = 0;
+        ll time = 1, sum = 0;
         for(int& v: children) {
             sum += subsum[v];
             if(height[v] == height[u] - 1) {
-                dp2[u] = min(dp2[u], dp1[u] - (time1*subsum[v] + dp1[v]) - (2*subsize[v])*(subsum[u] - rate[u] - sum) + (total_time - 2*subsize[v])*subsum[v] + dp2[v]);
+                dp2[u] = min(dp2[u], dp1[u] - (time*subsum[v] + dp1[v]) - (2*subsize[v])*(subsum[u] - rate[u] - sum) + (total_time - 2*subsize[v])*subsum[v] + dp2[v]);
             }
-            time1 += 2*subsize[v];
+            time += 2*subsize[v];
         }
     }
 }
