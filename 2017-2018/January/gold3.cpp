@@ -18,13 +18,11 @@ int main() {
         ans %= MOD;
         cur += (m-1)*dp[i-1];
         if(i == 1) cur += m;
-        cur %= MOD;
         if(i >= k) {
             cur -= (m-1)*dp[i-k];
             if(i == k) cur -= m;
-            cur = (cur + MOD) % MOD;
         }
-
+        cur = (cur + MOD) % MOD;
         dp[i] += cur;
         dp[i] %= MOD;
     }
