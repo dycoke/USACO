@@ -1,8 +1,3 @@
-/*
-bad dp, trying to get sos to work
-somehow passed, but probably bad tc
-will fix sos dp sometime
-*/
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
@@ -42,7 +37,7 @@ void solve() {
         cnt[res]++;
     }
     vector<ll> ways(1 << m, 1);
-    vector<ll> dp(1 << m);
+    vector<vector<ll>> dp(1 << m, vector<ll>(m + 1));
     for(int i = 0; i < (1 << m); i++) {
         if(cnt[i]) {
             ll tot = 0;
@@ -50,21 +45,26 @@ void solve() {
                 tot = (tot + fct[cnt[i]] * inv[cnt[i] - j]) % MOD;
             }
             ways[i] = tot;
-            dp[i] = 1;
+            dp[i][0] = 0;
         }
     }
 
     ll ans = 0;
-
     for(int mask = 0; mask < (1 << m); mask++) {
-        if(!cnt[mask]) continue;
-        ll tot = 0;
-        for(int mask2 = mask; mask2 > 0; mask2 = (mask2 - 1) & mask) {
-            if(cnt[mask2]) tot = (tot + dp[mask2]);
+        for(int i = 0, j = 1; j <= m; i++, j++) {
+            if(mask & (1 << i)) {
+                dp[mask][j] = (dp[mask][i] + dp[mask ^ (1 << i)][i]) % MOD;
+            } else {
+                dp[mask][j] = dp[mask][i];
+            }
         }
-        if(cnt[0]) tot = (tot + dp[0]);
-        dp[mask] = (ways[mask] * tot) % MOD;
-        ans = (ans + dp[mask]) % MOD;
+        if(cnt[mask]) {
+            ll tot = (ways[mask] * dp[mask][m] + ways[mask]) % MOD;
+            ans = (ans + tot) % MOD;
+            for(int i = 0; i <= m; i++) {
+                dp[mask][i] = (dp[mask][i] + tot) % MOD;
+            }
+        }
     }
     cout << ans << '\n';
 }
