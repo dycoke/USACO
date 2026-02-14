@@ -5,7 +5,7 @@ typedef long long ll;
 
 class DSU {
     private:
-	    vector<int> e;
+        vector<int> e;
         vector<int> v;
 
     public:
